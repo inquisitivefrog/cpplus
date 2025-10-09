@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.28)
+project(MultiFile)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_BUILD_TYPE Debug)
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    add_compile_options(-g)
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+    add_compile_options(-O3)
+endif()
+
+find_package(Threads REQUIRED)
+add_executable(main main.cpp DirectoryManager.cpp)
+target_link_libraries(main PRIVATE Threads::Threads stdc++fs)
