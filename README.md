@@ -16,6 +16,7 @@ $ sudo apt install libc6-dbg
 $ sudo apt install glibc-source
 $ sudo tar -xf /usr/src/glibc/glibc-*.tar.* -C /usr/src/glibc
 $ sudo apt install libstdc++6-13-dbg
+$ sudo apt install libstdc++6 libc6 libgcc1
 $ sudo apt install cmake clang lldb valgrind
 $ sudo apt install openssh-server
 $ sudo systemctl enable --now ssh
@@ -134,6 +135,23 @@ $ perf record -g -F 9999 ./main
 $ perf record -g -e cycles ./main
 $ sudo apt install valgrind
 $ valgrind --tool=cachegrind ./main
+
+BUILD
+-----
+$ cd <feature>
+$ vi CMakeLists.txt
+$ mkdir build; cd build
+$ cmake -Wno-dev ..
+$ cmake -Wno-dev -DCMAKE_BUILD_TYPE=Release ..
+$ cmake -Wno-dev -DCMAKE_BUILD_TYPE=Debug ..
+$ cmake --build . --clean-first
+$ make
+$ ls -l 
+$ ldconfig ./main
+$ free -h
+$ sudo swapoff -a
+$ nm -an ./main | c++filt | grep -E '<known_object>'
+$ strip --strip-unneeded ./main
 
 EXAMPLES
 --------
